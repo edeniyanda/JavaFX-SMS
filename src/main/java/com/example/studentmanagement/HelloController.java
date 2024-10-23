@@ -76,7 +76,7 @@ public class HelloController {
 
         // Add listener to TableView for row selection
         infoTable.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getClickCount() > 1) {  // Optional: Use double-click if desired
+            if (event.getClickCount() == 1) {  // Optional: Use double-click if desired
                 populateTextFields();
             }
         });
