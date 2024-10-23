@@ -53,6 +53,25 @@
             <TableColumn prefWidth="114.39996337890625" text="Department " />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Add New Student" />
+      <Button layoutX="14.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Add New Student">
+         <font>
+            <Font size="13.5" />
+         </font>
+      </Button>
+      <Button layoutX="238.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Update Student Data">
+         <font>
+            <Font size="13.5" />
+         </font>
+      </Button>
+      <Button layoutX="479.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Clear Fields">
+         <font>
+            <Font size="13.5" />
+         </font>
+      </Button>
+      <Button layoutX="698.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Delete Students ">
+         <font>
+            <Font size="13.5" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
