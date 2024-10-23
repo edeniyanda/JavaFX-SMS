@@ -4,11 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class HelloController {
 
@@ -71,6 +73,27 @@ public class HelloController {
 
         // Set the data to the table
         infoTable.setItems(studentList);
+
+        // Add listener to TableView for row selection
+        infoTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 1) {  // Optional: Use double-click if desired
+                populateTextFields();
+            }
+        });
+    }
+
+    // Populate text fields when a row is selected
+    private void populateTextFields() {
+        // Get the selected student from the table
+        Student selectedStudent = infoTable.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent != null) {
+            // Set the values in the text fields from the selected student
+            txtFirstName.setText(selectedStudent.getFirstName());
+            txtLastName.setText(selectedStudent.getLastName());
+            txtMobileNumber.setText(selectedStudent.getMobileNumber());
+            txtDepartment.setText(selectedStudent.getDepartment());
+        }
     }
 
     @FXML
@@ -83,7 +106,8 @@ public class HelloController {
 
         // Validate input
         if (firstName.isEmpty() || lastName.isEmpty() || mobileNumber.isEmpty() || department.isEmpty()) {
-            System.out.println("All fields are required!");
+            // Show alert for missing input
+            showAlert(Alert.AlertType.WARNING, "Input Error", "All fields are required!");
             return;
         }
 
@@ -108,7 +132,8 @@ public class HelloController {
         if (selectedStudent != null) {
             studentList.remove(selectedStudent);
         } else {
-            System.out.println("No student selected for deletion.");
+            // Show alert for no selection
+            showAlert(Alert.AlertType.WARNING, "Selection Error", "No student selected for deletion.");
         }
     }
 
@@ -117,6 +142,19 @@ public class HelloController {
         // Get the selected student from the table
         Student selectedStudent = infoTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
+
+            // Get data from text fields
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String mobileNumber = txtMobileNumber.getText();
+            String department = txtDepartment.getText();
+
+            // Validate input
+            if (firstName.isEmpty() || lastName.isEmpty() || mobileNumber.isEmpty() || department.isEmpty()) {
+                // Show alert for missing input
+                showAlert(Alert.AlertType.WARNING, "Input Error", "All fields are required!");
+                return;
+            }
             // Update the selected student's details
             selectedStudent.setFirstName(txtFirstName.getText());
             selectedStudent.setLastName(txtLastName.getText());
@@ -127,7 +165,8 @@ public class HelloController {
             infoTable.refresh();
             clearFields();
         } else {
-            System.out.println("No student selected for update.");
+            // Show alert for no selection
+            showAlert(Alert.AlertType.WARNING, "Selection Error", "No student selected for update.");
         }
     }
 
@@ -137,5 +176,14 @@ public class HelloController {
         txtLastName.clear();
         txtMobileNumber.clear();
         txtDepartment.clear();
+    }
+
+    // Utility method to show alert dialogs
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // No header for this dialog
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
