@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="878.0" style="-fx-background-color: #2F3336;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="878.0" style="-fx-background-color: #2F3336;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagement.HelloController">
    <children>
       <Label layoutX="220.0" prefHeight="51.0" prefWidth="438.0" text="Student Management System" textFill="#e1e8ed">
          <font>
@@ -34,10 +34,10 @@
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="121.0" layoutY="23.0" prefHeight="27.0" prefWidth="214.0" />
-            <TextField layoutX="121.0" layoutY="72.0" prefHeight="27.0" prefWidth="214.0" />
-            <TextField layoutX="587.0" layoutY="23.0" prefHeight="27.0" prefWidth="214.0" />
-            <TextField layoutX="590.0" layoutY="72.0" prefHeight="27.0" prefWidth="214.0" />
+            <TextField fx:id="txtFirstName" layoutX="121.0" layoutY="23.0" prefHeight="27.0" prefWidth="214.0" />
+            <TextField fx:id="txtLastName" layoutX="121.0" layoutY="72.0" prefHeight="27.0" prefWidth="214.0" />
+            <TextField fx:id="txtMobileNumber" layoutX="587.0" layoutY="23.0" prefHeight="27.0" prefWidth="214.0" />
+            <TextField fx:id="txtDepartment" layoutX="590.0" layoutY="72.0" prefHeight="27.0" prefWidth="214.0" />
             <Label layoutX="430.0" layoutY="71.0" prefHeight="29.0" prefWidth="152.0" text="Department" textFill="#e1e8ed">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
@@ -45,30 +45,31 @@
             </Label>
          </children>
       </Pane>
-      <TableView layoutX="10.0" layoutY="249.0" prefHeight="303.0" prefWidth="856.0">
+      <TableView fx:id="infoTable" layoutX="10.0" layoutY="249.0" prefHeight="303.0" prefWidth="856.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="142.39999389648438" text="Student First Name" />
-            <TableColumn prefWidth="131.2000274658203" text="Student Mobile" />
-            <TableColumn prefWidth="114.39996337890625" text="Department " />
+          <TableColumn fx:id="IDColumn" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="FNColumn" prefWidth="142.39999389648438" text="Student First Name" />
+            <TableColumn fx:id="LNColumn" prefWidth="130.40003967285156" text="Student Last Name" />
+            <TableColumn fx:id="MobileColumn" prefWidth="131.99993896484375" text="Student Mobile" />
+            <TableColumn fx:id="DepartmentColumn" prefWidth="128.0" text="Department " />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Add New Student">
+      <Button fx:id="btnAdd" layoutX="14.0" layoutY="192.0" mnemonicParsing="false" onAction="#Add" prefHeight="35.0" prefWidth="167.0" text="Add New Student">
          <font>
             <Font size="13.5" />
          </font>
       </Button>
-      <Button layoutX="238.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Update Student Data">
+      <Button fx:id="btnUpdate" layoutX="243.0" layoutY="192.0" mnemonicParsing="false" onAction="#Update" prefHeight="35.0" prefWidth="167.0" text="Update Student Data">
          <font>
             <Font size="13.5" />
          </font>
       </Button>
-      <Button layoutX="479.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Clear Fields">
+      <Button fx:id="btnClear" layoutX="478.0" layoutY="192.0" mnemonicParsing="false" onAction="#Clear" prefHeight="35.0" prefWidth="167.0" text="Clear Fields">
          <font>
             <Font size="13.5" />
          </font>
       </Button>
-      <Button layoutX="698.0" layoutY="192.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" text="Delete Students ">
+      <Button fx:id="btnDelete" layoutX="698.0" layoutY="192.0" mnemonicParsing="false" onAction="#Delete" prefHeight="35.0" prefWidth="167.0" text="Delete Students ">
          <font>
             <Font size="13.5" />
          </font>
