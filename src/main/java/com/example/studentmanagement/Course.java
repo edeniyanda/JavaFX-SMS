@@ -1,6 +1,6 @@
 package com.example.studentmanagement;
 
-class Course {
+public class Course {
     private String courseCode;
     private String courseName;
     private int maximumCapacity;
@@ -15,7 +15,7 @@ class Course {
         this.currentSize = 0;
     }
 
-    // Getters
+    // Getters (Important for JavaFX TableView PropertyValueFactory)
     public String getCourseCode() {
         return courseCode;
     }

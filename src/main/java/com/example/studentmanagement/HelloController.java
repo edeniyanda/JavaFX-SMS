@@ -63,6 +63,40 @@ public class HelloController {
     @FXML
     private TextField txtMobileNumber;
 
+//    For the Course Scene
+
+    @FXML
+    private TableColumn<Course, String> CourseCodeCol;
+
+    @FXML
+    private TableColumn<Course, Integer> CourseSizeCol;
+
+    @FXML
+    private TableColumn<Course, String> CourseTitleCol;
+
+    @FXML
+    private Button btnAddCourse;
+
+    @FXML
+    private Button btnHome;
+
+    @FXML
+    private TableView<Course> courseTable;
+
+    @FXML
+    private TextField txtCourseCode; // Typo corrected to txtCourseCode
+
+    @FXML
+    private TextField txtCourseTitle;
+
+    @FXML
+    private TextField txtMaxCap;
+
+    // ObservableList to store course data
+    // Make the course list static to persist between scene changes
+    private static ObservableList<Course> courseList = FXCollections.observableArrayList();
+
+
     // Observable list to hold student data
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
@@ -109,9 +143,9 @@ public class HelloController {
 
 
         // Manually call the method to initialize the table
-//        controller.initializeStudentTable(); // This is critical!
+        controller.initializeCourseTable(); // This is critical!
 
-        Scene scene = new Scene(root, 720, 590);
+        Scene scene = new Scene(root, 742, 590);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.setResizable(false);
@@ -239,6 +273,49 @@ public class HelloController {
         txtLastName.clear();
         txtMobileNumber.clear();
         txtDepartment.clear();
+    }
+
+    @FXML
+    private void initializeCourseTable() {
+        // Set up the columns with the corresponding properties of the Course class
+        CourseTitleCol.setCellValueFactory(new PropertyValueFactory<>("courseName"));
+        CourseCodeCol.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        CourseSizeCol.setCellValueFactory(new PropertyValueFactory<>("maximumCapacity"));
+        System.out.println("Testtiminy");
+        // Bind the course list to the TableView
+        courseTable.setItems(courseList);
+    }
+    
+
+    @FXML
+    void addCourse(ActionEvent event) {
+        // Retrieve input values from the text fields
+        String courseName = txtCourseTitle.getText();
+        String courseCode = txtCourseCode.getText(); // Corrected typo
+        int maxCapacity;
+        System.out.println("I made it though");
+        // Validate max capacity input
+        try {
+            maxCapacity = Integer.parseInt(txtMaxCap.getText());
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Invalid max capacity. Please enter a number.");
+            return;
+        }
+
+        System.out.println("Also made it though");
+
+        // Create a new Course object and add it to the list
+        Course newCourse = new Course(courseCode, courseName, maxCapacity);
+
+        System.out.println("See me");
+        courseList.add(newCourse);
+
+        System.out.println("See 555e");
+
+        // Clear the input fields after adding a course
+        txtCourseTitle.clear();
+        txtCourseCode.clear();
+        txtMaxCap.clear();
     }
 
     // Utility method to show alert dialogs
