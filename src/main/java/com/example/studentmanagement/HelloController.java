@@ -98,7 +98,7 @@ public class HelloController {
 
 
     // Observable list to hold student data
-    private ObservableList<Student> studentList = FXCollections.observableArrayList();
+    private static ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     // Counter to generate unique IDs
     private int studentIdCounter = 1;
@@ -281,7 +281,7 @@ public class HelloController {
         CourseTitleCol.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         CourseCodeCol.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
         CourseSizeCol.setCellValueFactory(new PropertyValueFactory<>("maximumCapacity"));
-        System.out.println("Testtiminy");
+
         // Bind the course list to the TableView
         courseTable.setItems(courseList);
     }
@@ -291,9 +291,9 @@ public class HelloController {
     void addCourse(ActionEvent event) {
         // Retrieve input values from the text fields
         String courseName = txtCourseTitle.getText();
-        String courseCode = txtCourseCode.getText(); // Corrected typo
+        String courseCode = txtCourseCode.getText();
         int maxCapacity;
-        System.out.println("I made it though");
+
         // Validate max capacity input
         try {
             maxCapacity = Integer.parseInt(txtMaxCap.getText());
@@ -302,15 +302,9 @@ public class HelloController {
             return;
         }
 
-        System.out.println("Also made it though");
-
         // Create a new Course object and add it to the list
         Course newCourse = new Course(courseCode, courseName, maxCapacity);
-
-        System.out.println("See me");
         courseList.add(newCourse);
-
-        System.out.println("See 555e");
 
         // Clear the input fields after adding a course
         txtCourseTitle.clear();
