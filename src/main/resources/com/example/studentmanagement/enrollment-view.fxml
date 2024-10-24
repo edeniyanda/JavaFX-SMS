@@ -17,8 +17,8 @@
       </Label>
       <Pane layoutX="23.0" layoutY="55.0" prefHeight="226.0" prefWidth="694.0" style="-fx-background-color: #000000;">
          <children>
-            <ComboBox fx:id="cmbSelectStudent" layoutX="184.0" layoutY="30.0" prefHeight="27.0" prefWidth="481.0" />
-            <ComboBox fx:id="cmbSelectCourse" layoutX="305.0" layoutY="88.0" prefHeight="27.0" prefWidth="360.0" />
+            <ComboBox fx:id="cmbSelectStudent" layoutX="169.0" layoutY="30.0" prefHeight="27.0" prefWidth="496.0" />
+            <ComboBox fx:id="cmbSelectCourse" layoutX="259.0" layoutY="88.0" prefHeight="27.0" prefWidth="406.0" />
             <Label layoutX="12.0" layoutY="26.0" prefHeight="29.0" prefWidth="166.0" text="Student To Enroll" textFill="#e1e8ed">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
@@ -29,7 +29,7 @@
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
-            <Button fx:id="btnEnrollStudent" layoutX="413.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleEnrollStudent" prefHeight="39.0" prefWidth="246.0" text="Enroll Student ">
+            <Button fx:id="btnEnrollStudent" layoutX="16.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleEnrollStudent" prefHeight="39.0" prefWidth="643.0" text="Enroll Student ">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

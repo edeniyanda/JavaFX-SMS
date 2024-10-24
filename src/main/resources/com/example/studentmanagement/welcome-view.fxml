@@ -28,7 +28,7 @@
             <Font name="System Italic" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="64.0" layoutY="307.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="490.0" text="Grade Management">
+      <Button layoutX="64.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToGradingScene" prefHeight="40.0" prefWidth="490.0" text="Grade Management">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>

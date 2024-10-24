@@ -101,6 +101,23 @@ public class HelloController {
     @FXML
     private ListView<Enrollment> enrollmentListView;
 
+    //    FOr the Grading View
+
+    @FXML
+    private ComboBox<Student> cmbSelectStudentForGrades;
+
+    @FXML
+    private ComboBox<Course> cmbSelectCourseForGrades;
+
+    @FXML
+    private TextField txtGrade;
+
+    @FXML
+    private Button btnAssignGrade;
+
+    @FXML
+    private ListView<Enrollment> gradeListView;
+
 
     // ObservableList to store course data
     // Make the course list static to persist between scene changes
@@ -183,6 +200,24 @@ public class HelloController {
         stage.show();
     }
 
+    public void switchToGradingScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("grade-view.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller
+        HelloController controller = loader.getController();
+
+
+        // Manually call the method to initialize the table
+        controller.initializeGradeComponents(); // This is critical!
+
+        Scene scene = new Scene(root, 742, 590);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
 
     public void initializeStudentTable() {
         System.out.println("Hello Bug");
@@ -215,6 +250,30 @@ public class HelloController {
     }
 
     @FXML
+    public void initializeGradeComponents() {
+        // Populate the ComboBox with students
+        cmbSelectStudentForGrades.setItems(studentList);
+
+        // Add a listener to the student ComboBox to update courses based on selected student
+        cmbSelectStudentForGrades.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedStudent) -> {
+            if (selectedStudent != null) {
+                // Filter courses that the selected student is enrolled in
+                ObservableList<Course> enrolledCourses = FXCollections.observableArrayList();
+                for (Enrollment enrollment : enrollmentList) {
+                    if (enrollment.getStudent().equals(selectedStudent)) {
+                        enrolledCourses.add(enrollment.getCourse());
+                    }
+                }
+                cmbSelectCourseForGrades.setItems(enrolledCourses);
+            }
+        });
+
+        // Bind the enrollment list to the ListView to display enrollments with grades
+        gradeListView.setItems(enrollmentList);
+    }
+
+
+    @FXML
     void handleEnrollStudent(ActionEvent event) {
         Student selectedStudent = cmbSelectStudent.getSelectionModel().getSelectedItem();
         Course selectedCourse = cmbSelectCourse.getSelectionModel().getSelectedItem();
@@ -236,6 +295,34 @@ public class HelloController {
     }
 
 
+    @FXML
+    void handleAssignGrade(ActionEvent event) {
+        Student selectedStudent = cmbSelectStudentForGrades.getSelectionModel().getSelectedItem();
+        Course selectedCourse = cmbSelectCourseForGrades.getSelectionModel().getSelectedItem();
+        String grade = txtGrade.getText();
+
+        if (selectedStudent == null || selectedCourse == null || grade.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Please select a student, a course, and enter a valid grade.");
+            return;
+        }
+
+        // Find the enrollment to assign the grade to
+        for (Enrollment enrollment : enrollmentList) {
+            if (enrollment.getStudent().equals(selectedStudent) && enrollment.getCourse().equals(selectedCourse)) {
+                enrollment.setGrade(grade);
+                showAlert(Alert.AlertType.INFORMATION, "Grade Assigned", "Grade successfully assigned to student.");
+                break;
+            }
+        }
+
+        // Clear the input fields after assigning grade
+        cmbSelectStudentForGrades.getSelectionModel().clearSelection();
+        cmbSelectCourseForGrades.getSelectionModel().clearSelection();
+        txtGrade.clear();
+
+        // Refresh the ListView to reflect the updated grades
+        gradeListView.refresh();
+    }
 
 
     // Populate text fields when a row is selected
