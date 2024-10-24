@@ -1,11 +1,15 @@
 package com.example.studentmanagement;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Student {
     private int id;
     private String firstName;
     private String lastName;
     private String mobileNumber;
     private String department;
+    private Map<Course, Double> enrolledCourses;
 
     public Student(int id, String firstName, String lastName, String mobileNumber, String department) {
         this.id = id;
@@ -13,6 +17,7 @@ public class Student {
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
         this.department = department;
+        this.enrolledCourses = new HashMap<>();
     }
 
     // Getters and Setters
@@ -30,4 +35,14 @@ public class Student {
 
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
+
+    // Enroll in a course
+    public void enrollInCourse(Course course) {
+        if (!this.enrolledCourses.containsKey(course)) {
+            course.addStudent();
+            enrolledCourses.put(course, null);  // Initialize grade as null
+        } else {
+            System.out.println("Student already enrolled in this course.");
+        }
+    }
 }
