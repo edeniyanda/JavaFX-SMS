@@ -59,4 +59,10 @@ public class Student {
     public Map<Course, Double> getEnrolledCourses() {
         return enrolledCourses;
     }
+
+    // Override toString to display meaningful information in the ComboBox
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " (ID: " + id + ")";
+    }
 }

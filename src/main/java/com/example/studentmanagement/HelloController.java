@@ -93,13 +93,13 @@ public class HelloController {
     private Button btnEnrollStudent;
 
     @FXML
-    private ComboBox<?> cmbSelectCourse;
+    private ComboBox<Course> cmbSelectCourse;
 
     @FXML
-    private ComboBox<?> cmbSelectStudent;
+    private ComboBox<Student> cmbSelectStudent;
 
     @FXML
-    private ListView<?> enrollmentListView;
+    private ListView<Enrollment> enrollmentListView;
 
 
     // ObservableList to store course data
@@ -165,6 +165,24 @@ public class HelloController {
         stage.show();
     }
 
+    public void switchToEnrollmentScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("enrollment-view.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller
+        HelloController controller = loader.getController();
+
+
+        // Manually call the method to initialize the table
+        controller.initializeEnrollmentComponents(); // This is critical!
+
+        Scene scene = new Scene(root, 742, 590);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
 
     public void initializeStudentTable() {
         System.out.println("Hello Bug");
@@ -196,6 +214,30 @@ public class HelloController {
         enrollmentListView.setItems(enrollmentList);
     }
 
+    @FXML
+    void handleEnrollStudent(ActionEvent event) {
+        Student selectedStudent = cmbSelectStudent.getSelectionModel().getSelectedItem();
+        Course selectedCourse = cmbSelectCourse.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent == null || selectedCourse == null) {
+            showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select both a student and a course to enroll.");
+            return;
+        }
+
+        // Create a new Enrollment and add it to the enrollmentList
+        Enrollment newEnrollment = new Enrollment(selectedStudent, selectedCourse);
+        enrollmentList.add(newEnrollment);
+
+        showAlert(Alert.AlertType.INFORMATION, "Enrollment Successful", "Student successfully enrolled in the course.");
+
+        // Clear selections
+        cmbSelectStudent.getSelectionModel().clearSelection();
+        cmbSelectCourse.getSelectionModel().clearSelection();
+    }
+
+
+
+
     // Populate text fields when a row is selected
     private void populateTextFields() {
         // Get the selected student from the table
@@ -210,11 +252,6 @@ public class HelloController {
         }
     }
 
-    // A separate initialization for the Welcome Scene
-    public void initializeScene2() {
-        // Initialize fields or logic for the second scene
-        // someOtherField.setText("...");
-    }
 
     @FXML
     void Add(ActionEvent event) {
@@ -334,7 +371,7 @@ public class HelloController {
         txtCourseCode.clear();
         txtMaxCap.clear();
     }
-    
+
 
     // Utility method to show alert dialogs
     private void showAlert(Alert.AlertType alertType, String title, String message) {

@@ -36,7 +36,7 @@ public class HelloApplication extends Application {
         if (fxmlFile.equals("hello-view.fxml")) {
             controller.initializeStudentTable();
         } else if (fxmlFile.equals("welcome-view.fxml")) {
-            controller.initializeScene2();
+            return;
         }
     }
 

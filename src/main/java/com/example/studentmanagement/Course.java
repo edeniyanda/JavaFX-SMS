@@ -47,4 +47,10 @@ public class Course {
     public static int getTotalEnrolledStudents() {
         return totalEnrolledStudents;
     }
+
+    // Override toString to display meaningful information in the ComboBox
+    @Override
+    public String toString() {
+        return courseName + " (" + courseCode + ")";
+    }
 }
