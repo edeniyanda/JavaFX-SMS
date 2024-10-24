@@ -82,9 +82,28 @@ public class HelloController {
         stage.show();
     }
 
+    public void switchToStudentScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        Parent root = loader.load();
 
-    @FXML
-    public void initialize() {
+        // Get the controller
+        HelloController controller = loader.getController();
+
+
+        // Manually call the method to initialize the table
+        controller.initializeStudentTable(); // This is critical!
+
+        Scene scene = new Scene(root, 720, 590);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+
+
+    public void initializeStudentTable() {
+        System.out.println("Hello Bug");
         // Bind table columns to Student class properties
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         FNColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -115,6 +134,12 @@ public class HelloController {
             txtMobileNumber.setText(selectedStudent.getMobileNumber());
             txtDepartment.setText(selectedStudent.getDepartment());
         }
+    }
+
+    // A separate initialization for the Welcome Scene
+    public void initializeScene2() {
+        // Initialize fields or logic for the second scene
+        // someOtherField.setText("...");
     }
 
     @FXML
