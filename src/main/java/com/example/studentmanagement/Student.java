@@ -45,4 +45,18 @@ public class Student {
             System.out.println("Student already enrolled in this course.");
         }
     }
+
+    // Assign a grade for a specific course
+    public void assignGrade(Course course, Double grade) {
+        if (this.enrolledCourses.containsKey(course)) {
+            enrolledCourses.put(course, grade);
+        } else {
+            System.out.println("Student is not enrolled in the course: " + course.getCourseName());
+        }
+    }
+
+    // Retrieve the enrolled courses and grades
+    public Map<Course, Double> getEnrolledCourses() {
+        return enrolledCourses;
+    }
 }

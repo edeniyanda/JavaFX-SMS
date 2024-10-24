@@ -1,5 +1,8 @@
 package com.example.studentmanagement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class CourseManagement {
     private static List<Course> courses = new ArrayList<>();
     private static List<Student> students = new ArrayList<>();
@@ -24,10 +27,6 @@ class CourseManagement {
         student.assignGrade(course, grade);
     }
 
-    // Calculate the overall grade for a student
-    public static double calculateOverallGrade(Student student) {
-        return student.calculateOverallGrade();
-    }
 
     // Retrieve the list of all courses
     public static List<Course> getCourses() {
@@ -52,7 +51,7 @@ class CourseManagement {
     // Find a student by their ID
     public static Student findStudent(String studentId) {
         for (Student student : students) {
-            if (student.getStudentID().equals(studentId)) {
+            if (student.getId().equals(studentId)) {
                 return student;
             }
         }
