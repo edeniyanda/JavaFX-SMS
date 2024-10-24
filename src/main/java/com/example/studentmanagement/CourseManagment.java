@@ -51,7 +51,7 @@ class CourseManagement {
     // Find a student by their ID
     public static Student findStudent(String studentId) {
         for (Student student : students) {
-            if (student.getId().equals(studentId)) {
+            if (String.valueOf(student.getId()).equals(studentId))  {
                 return student;
             }
         }

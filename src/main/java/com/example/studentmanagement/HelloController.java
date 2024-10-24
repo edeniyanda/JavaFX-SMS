@@ -100,6 +100,23 @@ public class HelloController {
         stage.show();
     }
 
+    public void switchToCourseScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("course-view.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller
+        HelloController controller = loader.getController();
+
+
+        // Manually call the method to initialize the table
+//        controller.initializeStudentTable(); // This is critical!
+
+        Scene scene = new Scene(root, 720, 590);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
 
 
     public void initializeStudentTable() {
