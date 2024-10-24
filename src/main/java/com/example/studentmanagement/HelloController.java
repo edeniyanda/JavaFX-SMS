@@ -8,11 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -84,13 +80,27 @@ public class HelloController {
     private TableView<Course> courseTable;
 
     @FXML
-    private TextField txtCourseCode; // Typo corrected to txtCourseCode
+    private TextField txtCourseCode;
 
     @FXML
     private TextField txtCourseTitle;
 
     @FXML
     private TextField txtMaxCap;
+
+    //    for the Enrollment Scene
+    @FXML
+    private Button btnEnrollStudent;
+
+    @FXML
+    private ComboBox<?> cmbSelectCourse;
+
+    @FXML
+    private ComboBox<?> cmbSelectStudent;
+
+    @FXML
+    private ListView<?> enrollmentListView;
+
 
     // ObservableList to store course data
     // Make the course list static to persist between scene changes
@@ -99,6 +109,9 @@ public class HelloController {
 
     // Observable list to hold student data
     private static ObservableList<Student> studentList = FXCollections.observableArrayList();
+
+    // Observable list for enrollments
+    private static ObservableList<Enrollment> enrollmentList = FXCollections.observableArrayList();
 
     // Counter to generate unique IDs
     private int studentIdCounter = 1;
@@ -171,6 +184,16 @@ public class HelloController {
                 populateTextFields();
             }
         });
+    }
+
+    @FXML
+    public void initializeEnrollmentComponents() {
+        // Populate the ComboBox with students and courses
+        cmbSelectStudent.setItems(studentList);
+        cmbSelectCourse.setItems(courseList);
+
+        // Bind the enrollment list to the ListView to display enrolled students
+        enrollmentListView.setItems(enrollmentList);
     }
 
     // Populate text fields when a row is selected
@@ -311,6 +334,7 @@ public class HelloController {
         txtCourseCode.clear();
         txtMaxCap.clear();
     }
+    
 
     // Utility method to show alert dialogs
     private void showAlert(Alert.AlertType alertType, String title, String message) {
